@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chatbot Example</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .chat-container {
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 20px auto;
+  padding: 10px;
+}
+
+.chat-box {
+  height: 200px;
+  overflow-y: scroll;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+#user-input {
+  width: calc(100% - 70px);
+  padding: 5px;
+  margin-right: 5px;
+}
+
+#send-btn {
+  width: 60px;
+  padding: 5px;
+}
+
+  </style>
+</head>
+<body>
+
+<div class="chat-container">
+  <div class="chat-box" id="chat-box"></div>
+  <input type="text" id="user-input" placeholder="Type a message...">
+  <button id="send-btn">Send</button>
+</div>
+
+<script src="script.js"></script>
+<script>const chatBox = document.getElementById('chat-box');
+  const userInput = document.getElementById('user-input');
+  const sendBtn = document.getElementById('send-btn');
+  
+  sendBtn.addEventListener('click', sendMessage);
+  
+  function sendMessage() {
+    const message = userInput.value.trim();
+    if (message !== '') {
+      displayMessage('user', message);
+      // Replace this with your backend logic to process user input and generate bot response
+      const botResponse = generateBotResponse(message);
+      displayMessage('bot', botResponse);
+      userInput.value = '';
+      // Scroll chat box to bottom
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+  }
+  
+  function displayMessage(sender, message) {
+    const messageElement = document.createElement('div');
+    messageElement.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
+    messageElement.textContent = message;
+    chatBox.appendChild(messageElement);
+  }
+  
+  function generateBotResponse(userMessage) {
+    // Replace this with your logic to generate bot responses based on user input
+    // For demonstration purposes, simply echoing back the user message
+    return "Bot: You said: '" + userMessage + "'";
+  }
+  </script>
+</body>
+</html>
